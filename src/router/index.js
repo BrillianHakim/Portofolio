@@ -10,7 +10,7 @@ import Chat from '../pages/Chat.vue'
 import AdminLogin from '../pages/admin/Login.vue'
 import AdminDashboard from '../pages/admin/Dashboard.vue'
 import AdminProjects from '../pages/admin/Projects.vue'
-import AdminAchievements from '../pages/admin/achievements.vue'
+import AdminAchievements from '../pages/admin/Achievements.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
 import AdminChat from '../pages/admin/Chat.vue'
 

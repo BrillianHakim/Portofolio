@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
-// GET ALL ACHIEVEMENTS
+// GET ALL
 exports.getAchievements = async (req, res) => {
   try {
     const achievements = await prisma.achievement.findMany({
@@ -13,12 +13,13 @@ exports.getAchievements = async (req, res) => {
   }
 }
 
-// CREATE ACHIEVEMENT
+// CREATE
 exports.createAchievement = async (req, res) => {
   try {
     const { title, description, year } = req.body
 
-    const image = req.file ? `/uploads/${req.file.filename}` : null
+    // ✅ Cloudinary return req.file.path bukan req.file.filename
+    const image = req.file ? req.file.path : null
 
     const achievement = await prisma.achievement.create({
       data: {
@@ -30,35 +31,29 @@ exports.createAchievement = async (req, res) => {
     })
 
     res.status(201).json(achievement)
-
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 }
 
-// UPDATE ACHIEVEMENT
+// UPDATE
 exports.updateAchievement = async (req, res) => {
   try {
     const { id } = req.params
     const { title, description, year } = req.body
 
-    // ✅ Kalau ada file baru → pakai file baru, kalau tidak → pakai gambar lama
     const existingAchievement = await prisma.achievement.findUnique({
       where: { id: Number(id) }
     })
 
+    // ✅ Cloudinary return req.file.path
     const image = req.file
-      ? `/uploads/${req.file.filename}`
-      : existingAchievement.image  // ✅ pertahankan gambar lama
+      ? req.file.path
+      : existingAchievement.image
 
     const achievement = await prisma.achievement.update({
       where: { id: Number(id) },
-      data: {
-        title,
-        description,
-        year: Number(year),
-        image,
-      },
+      data: { title, description, year: Number(year), image },
     })
 
     res.json(achievement)
@@ -67,7 +62,7 @@ exports.updateAchievement = async (req, res) => {
   }
 }
 
-// DELETE ACHIEVEMENT
+// DELETE
 exports.deleteAchievement = async (req, res) => {
   try {
     const { id } = req.params

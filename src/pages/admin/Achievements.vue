@@ -102,7 +102,7 @@
           <!-- IMAGE -->
           <img
             v-if="item.image"
-            :src="'http://localhost:5000' + item.image"
+            :src="item.image"
             class="w-full h-40 object-cover"
           />
 

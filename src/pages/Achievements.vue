@@ -48,7 +48,7 @@
           <div class="relative w-full h-44 bg-neutral-900 overflow-hidden">
             <img
               v-if="cert.image"
-              :src="'http://localhost:5000' + cert.image"
+              :src="cert.image"
               alt="Certificate"
               class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
             />

@@ -12,9 +12,11 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.22.0",
+    "cloudinary": "^1.41.3",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "prisma": "^5.22.0",
     "socket.io": "^4.8.3"
   },

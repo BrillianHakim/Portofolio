@@ -10,11 +10,14 @@ const io = new Server(server, {
   cors: {
     origin: [
       'http://localhost:5173',
-      'https://brillianhakim.vercel.app',        
-      'https://portofolio-theta-eosin.vercel.app' 
+      'https://brillianhakim.vercel.app',
+      'https://portofolio-theta-eosin.vercel.app'
     ],
     methods: ['GET', 'POST'],
+    credentials: true
   },
+  transports: ['polling', 'websocket'],
+  allowEIO3: true
 })
 
 app.use(cors({

@@ -5,23 +5,30 @@ const http = require('http')
 const { Server } = require('socket.io')
 const app = express()
 const server = http.createServer(app)
+
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      'https://brillianhakim.vercel.app',        
+      'https://portofolio-theta-eosin.vercel.app' 
+    ],
     methods: ['GET', 'POST'],
   },
 })
 
-// ✅ CORS spesifik, bukan app.use(cors()) yang kosong
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173',
+    'https://brillianhakim.vercel.app',        
+    'https://portofolio-theta-eosin.vercel.app' 
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }))
 
 app.use(express.json())
 
-// ✅ SEMUA ROUTES di atas server.listen()
 const projectRoutes = require('./routes/project.routes')
 const achievementRoutes = require('./routes/achievement.routes')
 const contactRoutes = require('./routes/contact.routes')
@@ -31,8 +38,8 @@ const chatRoutes = require('./routes/chat.routes')
 app.use('/api/projects', projectRoutes)
 app.use('/api/achievements', achievementRoutes)
 app.use('/api/contact', contactRoutes)
-app.use('/api/auth', authRoutes)        // ✅ pindah ke atas
-app.use('/api/chat', chatRoutes)        // ✅ pindah ke atas
+app.use('/api/auth', authRoutes)        
+app.use('/api/chat', chatRoutes)        
 app.use('/uploads', express.static('uploads'))
 
 // SOCKET.IO

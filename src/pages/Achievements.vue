@@ -87,7 +87,7 @@ const loading = ref(true)
 
 onMounted(async () => {
   try {
-    const res = await fetch('http://localhost:5000/api/achievements')
+    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/achievements')
     achievements.value = await res.json()
   } catch (err) {
     console.error(err)

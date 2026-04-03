@@ -103,7 +103,7 @@ import { ref, onMounted } from 'vue'
 import { io } from 'socket.io-client'
 
 const messages = ref([])
-const socket = io('http://localhost:5000')
+const socket = io('https://portofolio-production-c69c.up.railway.app')
 
 const formatTime = (timestamp) => {
   if (!timestamp) return '-'
@@ -117,7 +117,7 @@ const formatTime = (timestamp) => {
 }
 
 const fetchMessages = async () => {
-  const res = await fetch('http://localhost:5000/api/chat')
+  const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/chat')
   const data = await res.json()
   messages.value = data
 }
@@ -126,7 +126,7 @@ const deleteMessage = async (id) => {
   const ok = window.confirm('Yakin ingin menghapus pesan ini?')
   if (!ok) return
 
-  await fetch(`http://localhost:5000/api/chat/${id}`, {
+  await fetch(`https://portofolio-production-c69c.up.railway.app/api/chat/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -140,7 +140,7 @@ const deleteAllMessages = async () => {
   const ok = window.confirm('Yakin ingin menghapus SEMUA pesan? Aksi ini tidak bisa dibatalkan!')
   if (!ok) return
 
-  await fetch('http://localhost:5000/api/chat/all', {
+  await fetch('https://portofolio-production-c69c.up.railway.app/api/chat/all', {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,

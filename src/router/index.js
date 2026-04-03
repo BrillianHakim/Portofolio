@@ -53,7 +53,7 @@ router.beforeEach(async (to, from, next) => {
 
   try {
     // Verify token ke backend, jangan hanya cek "ada atau tidak"
-    const res = await fetch('http://localhost:5000/api/auth/verify', {
+    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/auth/verify', {
       headers: { Authorization: `Bearer ${token}` }
     })
 

@@ -178,7 +178,7 @@ const form = ref({
 
 const fetchAchievements = async () => {
   try {
-    const res = await fetch('http://localhost:5000/api/achievements')
+    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/achievements')
     const data = await res.json()
     achievements.value = data
   } catch (err) {
@@ -208,9 +208,10 @@ const saveAchievement = async () => {
       formData.append('image', selectedFile.value)
     }
 
-    const url = isEditing.value
-      ? `http://localhost:5000/api/achievements/${editingId.value}`
-      : 'http://localhost:5000/api/achievements'
+    // saveAchievement
+const url = isEditing.value
+  ? `https://portofolio-production-c69c.up.railway.app/api/achievements/${editingId.value}`
+  : 'https://portofolio-production-c69c.up.railway.app/api/achievements'
 
     const method = isEditing.value ? 'PUT' : 'POST'
 
@@ -261,7 +262,7 @@ const deleteAchievement = async (id) => {
   try {
     const token = localStorage.getItem('token')
 
-    const res = await fetch(`http://localhost:5000/api/achievements/${id}`, {
+    const res = await fetch(`https://portofolio-production-c69c.up.railway.app/api/achievements/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`

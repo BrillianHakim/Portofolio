@@ -45,7 +45,7 @@
           <div class="relative w-full h-32 bg-neutral-900 overflow-hidden">
             <img
               v-if="project.image"
-              :src="'http://localhost:5000' + project.image"
+              :src="'https://portofolio-production-c69c.up.railway.app' + project.image"
               alt="Project Image"
               class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-500"
             />
@@ -102,7 +102,7 @@ const loading = ref(true)
 
 onMounted(async () => {
   try {
-    const res = await fetch('http://localhost:5000/api/projects')
+    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/projects')
     projects.value = await res.json()
   } catch (err) {
     console.error(err)

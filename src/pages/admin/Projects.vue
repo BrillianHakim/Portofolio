@@ -162,7 +162,7 @@ const token = localStorage.getItem('token')
 /* ===================== FETCH PROJECTS ===================== */
 const fetchProjects = async () => {
   try {
-    const res = await fetch('http://localhost:5000/api/projects')
+    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/projects')
     const data = await res.json()
     projects.value = data
   } catch (err) {
@@ -187,8 +187,8 @@ const saveProject = async () => {
     }
 
     const url = isEditing.value
-      ? `http://localhost:5000/api/projects/${editingId.value}`
-      : 'http://localhost:5000/api/projects'
+      ? `https://portofolio-production-c69c.up.railway.app/api/projects/${editingId.value}`
+      : 'https://portofolio-production-c69c.up.railway.app/api/projects'
 
     const method = isEditing.value ? 'PUT' : 'POST'
 
@@ -242,7 +242,7 @@ const deleteProject = async (id) => {
 
     if (!token) throw new Error('Unauthorized')
 
-    const res = await fetch(`http://localhost:5000/api/projects/${id}`, {
+    const res = await fetch(`https://portofolio-production-c69c.up.railway.app/api/projects/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`

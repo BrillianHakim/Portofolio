@@ -127,12 +127,11 @@ import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { io } from 'socket.io-client'
 
 const socket = io('https://portofolio-production-c69c.up.railway.app', {
-  // ✅ tambah ini
-  transports: ['polling', 'websocket'],
+  transports: ['websocket'], // Paksa gunakan websocket terlebih dahulu
   withCredentials: true,
   reconnectionAttempts: 5,
   reconnectionDelay: 1000,
-})
+});
 
 const username = ref('')
 const message = ref('')

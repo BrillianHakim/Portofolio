@@ -6,29 +6,46 @@ const { Server } = require('socket.io')
 const app = express()
 const server = http.createServer(app)
 
+// Ganti bagian inisialisasi Server io dengan ini:
 const io = new Server(server, {
   cors: {
-    origin: [
-      'http://localhost:5173',
-      'https://brillianhakim.vercel.app',
-      'https://portofolio-theta-eosin.vercel.app'
-    ],
+    // Gunakan fungsi untuk memastikan origin dicek dengan benar
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        'http://localhost:5173',
+        'https://brillianhakim.vercel.app',
+        'https://portofolio-theta-eosin.vercel.app'
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ['GET', 'POST'],
     credentials: true
   },
-  transports: ['polling', 'websocket'],
-  allowEIO3: true
-})
+  // Tambahkan ini untuk stabilitas di environment server seperti Railway
+  allowEIO3: true,
+  transports: ['websocket', 'polling'] 
+});
 
-app.use(cors({
-  origin: [
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  const allowedOrigins = [
     'http://localhost:5173',
-    'https://brillianhakim.vercel.app',        
-    'https://portofolio-theta-eosin.vercel.app' 
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}))
+    'https://brillianhakim.vercel.app',
+    'https://portofolio-theta-eosin.vercel.app'
+  ];
+  
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 app.use(express.json())
 

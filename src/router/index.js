@@ -5,14 +5,14 @@ import About from '../pages/About.vue'
 import Projects from '../pages/Projects.vue'
 import Achievements from '../pages/Achievements.vue'
 import Contact from '../pages/Contact.vue'
-import Chat from '../pages/Chat.vue'
+
 
 import AdminLogin from '../pages/admin/Login.vue'
 import AdminDashboard from '../pages/admin/Dashboard.vue'
 import AdminProjects from '../pages/admin/Projects.vue'
 import AdminAchievements from '../pages/admin/Achievements.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
-import AdminChat from '../pages/admin/Chat.vue'
+
 
 const routes = [
   { path: '/', component: Home },
@@ -20,7 +20,6 @@ const routes = [
   { path: '/projects', component: Projects },
   { path: '/achievements', component: Achievements },
   { path: '/contact', component: Contact },
-  { path: '/chat', component: Chat },
 
   { path: '/admin/login', component: AdminLogin },
 
@@ -32,7 +31,6 @@ const routes = [
       { path: 'dashboard', component: AdminDashboard },
       { path: 'projects', component: AdminProjects },
       { path: 'achievements', component: AdminAchievements },
-      { path: 'chat', component: AdminChat },
     ]
   }
 ]

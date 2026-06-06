@@ -33,14 +33,21 @@ const io = new Server(server, {
 });
 
 // 2. MIDDLEWARE EXPRESS
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://brillianhakim.vercel.app',
+  'https://portofolio-theta-eosin.vercel.app',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://brillianhakim.vercel.app',        
-    'https://portofolio-theta-eosin.vercel.app' 
-  ],
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin)) cb(null, true);
+    else cb(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }));
+
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 

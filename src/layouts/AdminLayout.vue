@@ -25,10 +25,6 @@
             class="block px-4 py-2 rounded-lg border border-transparent hover:border-neutral-700 hover:bg-neutral-900 transition">
             Achievements
           </router-link>
-          <router-link to="/admin/chat"
-            class="block px-4 py-2 rounded-lg border border-transparent hover:border-neutral-700 hover:bg-neutral-900 transition">
-            Chat
-          </router-link>
         </nav>
       </div>
 
@@ -52,47 +48,12 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { onMounted, onUnmounted } from 'vue'
+import { supabase } from '../lib/supabase'
 
 const router = useRouter()
-let intervalId = null
 
-const verifyToken = async () => {
-  const token = localStorage.getItem('token')
-  if (!token) {
-    router.push('/admin/login')
-    return
-  }
-  try {
-    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/auth/verify', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    if (res.status === 401 || res.status === 403) {
-      localStorage.removeItem('token')
-      router.push('/admin/login')
-    }
-  } catch (err) {
-    localStorage.removeItem('token')
-    router.push('/admin/login')
-  }
-}
-
-onMounted(() => {
-  // Cek pertama saat mount
-  verifyToken()
-
-  // Cek setiap 1 jam (3600000 ms)
-  intervalId = setInterval(verifyToken, 3600000)
-})
-
-// ✅ Penting! Hentikan interval saat komponen di-unmount
-onUnmounted(() => {
-  clearInterval(intervalId)
-})
-
-const logout = () => {
-  clearInterval(intervalId)
-  localStorage.removeItem('token')
+const logout = async () => {
+  await supabase.auth.signOut()
   router.push('/admin/login')
 }
 </script>

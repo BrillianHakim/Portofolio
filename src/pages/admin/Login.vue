@@ -15,14 +15,11 @@
 
       <!-- FORM CARD -->
       <div class="border border-neutral-800 rounded-xl px-6 py-8">
-
         <div class="space-y-5">
 
           <!-- EMAIL -->
           <div>
-            <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">
-              Email
-            </p>
+            <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">Email</p>
             <input
               v-model="email"
               type="email"
@@ -33,9 +30,7 @@
 
           <!-- PASSWORD -->
           <div>
-            <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">
-              Password
-            </p>
+            <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">Password</p>
             <input
               v-model="password"
               type="password"
@@ -47,9 +42,10 @@
           <!-- BUTTON -->
           <button
             @click="login"
-            class="w-full mt-4 border border-white py-3 rounded-lg font-medium hover:bg-white hover:text-black transition"
+            :disabled="loading"
+            class="w-full mt-4 border border-white py-3 rounded-lg font-medium hover:bg-white hover:text-black transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Login
+            {{ loading ? 'Loading...' : 'Login' }}
           </button>
 
           <!-- ERROR -->
@@ -58,49 +54,41 @@
           </p>
 
         </div>
-
       </div>
 
     </div>
   </section>
 </template>
+
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { supabase } from '../../lib/supabase'
 
 const email = ref('')
 const password = ref('')
 const error = ref('')
+const loading = ref(false)
 
 const router = useRouter()
 
 const login = async () => {
-  console.log("LOGIN DIKLIK")
-
   error.value = ''
+  loading.value = true
 
   try {
-    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value
-      })
+    const { error: authError } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
     })
 
-    const data = await res.json()
+    if (authError) throw authError
 
-    if (!res.ok) {
-      throw new Error(data.error || 'Login failed')
-    }
-
-    localStorage.setItem('token', data.token)
     router.push('/admin/dashboard')
-
   } catch (err) {
-    console.error(err)
-    error.value = err.message
+    error.value = err.message || 'Login failed'
+  } finally {
+    loading.value = false
   }
 }
 </script>

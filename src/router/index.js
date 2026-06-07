@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { supabase } from '../lib/supabase'
 
 import Home from '../pages/Home.vue'
 import About from '../pages/About.vue'
@@ -6,13 +7,11 @@ import Projects from '../pages/Projects.vue'
 import Achievements from '../pages/Achievements.vue'
 import Contact from '../pages/Contact.vue'
 
-
 import AdminLogin from '../pages/admin/Login.vue'
 import AdminDashboard from '../pages/admin/Dashboard.vue'
 import AdminProjects from '../pages/admin/Projects.vue'
 import AdminAchievements from '../pages/admin/Achievements.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
-
 
 const routes = [
   { path: '/', component: Home },
@@ -40,30 +39,14 @@ const router = createRouter({
   routes,
 })
 
-// ✅ Guard yang benar: verify token ke backend
 router.beforeEach(async (to, from, next) => {
   if (!to.meta.requiresAuth) return next()
 
-  const token = localStorage.getItem('token')
+  const { data: { session } } = await supabase.auth.getSession()
 
-  // Tidak ada token sama sekali → langsung redirect
-  if (!token) return next('/admin/login')
-
-  try {
-    // Verify token ke backend, jangan hanya cek "ada atau tidak"
-    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/auth/verify', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-
-    if (res.ok) {
-      next() // Token valid → izinkan masuk
-    } else {
-      localStorage.removeItem('token') // Buang token yang tidak valid
-      next('/admin/login')
-    }
-  } catch (err) {
-    // Jika backend tidak bisa dihubungi
-    localStorage.removeItem('token')
+  if (session) {
+    next()
+  } else {
     next('/admin/login')
   }
 })

@@ -13,11 +13,7 @@
 
       <!-- LOADING -->
       <div v-if="loading" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div
-          v-for="n in 3"
-          :key="n"
-          class="border border-neutral-800 rounded-xl p-4 animate-pulse"
-        >
+        <div v-for="n in 3" :key="n" class="border border-neutral-800 rounded-xl p-4 animate-pulse">
           <div class="w-full h-32 bg-neutral-800 rounded-lg mb-3"></div>
           <div class="h-3 bg-neutral-800 rounded w-3/4 mb-2"></div>
           <div class="h-3 bg-neutral-800 rounded w-full mb-1"></div>
@@ -26,10 +22,7 @@
       </div>
 
       <!-- EMPTY STATE -->
-      <div
-        v-else-if="projects.length === 0"
-        class="flex flex-col items-center justify-center py-24 text-center"
-      >
+      <div v-else-if="projects.length === 0" class="flex flex-col items-center justify-center py-24 text-center">
         <p class="text-4xl mb-4">🛠️</p>
         <p class="text-gray-500 text-sm">Belum ada project yang ditambahkan.</p>
       </div>
@@ -41,31 +34,17 @@
           :key="project.id"
           class="group border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-500 transition duration-300 flex flex-col"
         >
-          <!-- IMAGE -->
-          <div class="relative w-full h-32 bg-neutral-900 overflow-hidden">
-            <img
-              v-if="project.image"
-              :src="'https://portofolio-production-c69c.up.railway.app' + project.image"
-              alt="Project Image"
-              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-500"
-            />
-            <div
-              v-else
-              class="w-full h-full flex items-center justify-center text-3xl text-neutral-700"
-            >
-              🛠️
-            </div>
+          <!-- ICON UNIVERSAL -->
+          <div class="w-full h-32 bg-neutral-900 flex items-center justify-center border-b border-neutral-800 group-hover:bg-neutral-800 transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-neutral-600 group-hover:text-neutral-400 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+            </svg>
           </div>
 
           <!-- CONTENT -->
           <div class="p-4 flex flex-col flex-1">
-            <h2 class="text-sm font-semibold text-white leading-snug mb-1.5">
-              {{ project.title }}
-            </h2>
-
-            <p class="text-xs text-gray-400 leading-relaxed mb-3 flex-1">
-              {{ project.description }}
-            </p>
+            <h2 class="text-sm font-semibold text-white leading-snug mb-1.5">{{ project.title }}</h2>
+            <p class="text-xs text-gray-400 leading-relaxed mb-3 flex-1">{{ project.description }}</p>
 
             <!-- TECH TAGS -->
             <div class="flex flex-wrap gap-1.5 mb-3">
@@ -78,9 +57,8 @@
               </span>
             </div>
 
-            <!-- BUTTON -->
             <a
-              :href="project.githubUrl"
+              :href="project.github_url"
               target="_blank"
               class="self-start text-xs border border-white text-white px-3 py-1 rounded-lg hover:bg-white hover:text-black transition"
             >
@@ -96,18 +74,18 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { supabase } from '../lib/supabase'
 
 const projects = ref([])
 const loading = ref(true)
 
 onMounted(async () => {
-  try {
-    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/projects')
-    projects.value = await res.json()
-  } catch (err) {
-    console.error(err)
-  } finally {
-    loading.value = false
-  }
+  const { data } = await supabase
+    .from('projects')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  projects.value = data || []
+  loading.value = false
 })
 </script>

@@ -4,9 +4,7 @@
 
       <!-- HEADER -->
       <div class="mb-16">
-        <p class="text-xs tracking-[0.3em] text-gray-500 uppercase mb-3">
-          Admin Panel
-        </p>
+        <p class="text-xs tracking-[0.3em] text-gray-500 uppercase mb-3">Admin Panel</p>
         <h1 class="text-5xl font-bold tracking-tight">
           Achievements <span class="text-gray-400">Manager</span>
         </h1>
@@ -20,32 +18,17 @@
         </h2>
 
         <div class="space-y-4">
-
           <input
             v-model="form.title"
             placeholder="Title"
             class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
           />
-
           <input
             v-model="form.year"
             type="number"
             placeholder="Year"
             class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
           />
-
-          <!-- FILE INPUT CUSTOM -->
-          <div>
-            <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">
-              Upload Image
-            </p>
-            <input
-              type="file"
-              @change="handleFile"
-              class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:border file:border-neutral-700 file:rounded-lg file:bg-black file:text-white hover:file:bg-neutral-900"
-            />
-          </div>
-
           <textarea
             v-model="form.description"
             rows="4"
@@ -53,16 +36,27 @@
             class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
           />
 
-          <!-- BUTTON -->
-          <div class="flex gap-3 pt-2">
+          <!-- UPLOAD GAMBAR -->
+          <div>
+            <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">Upload Image</p>
+            <input
+              type="file"
+              accept="image/*"
+              @change="handleFile"
+              class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:border file:border-neutral-700 file:rounded-lg file:bg-black file:text-white hover:file:bg-neutral-900"
+            />
+            <p v-if="uploading" class="text-xs text-gray-400 mt-2">Uploading image...</p>
+            <img v-if="form.image" :src="form.image" class="mt-3 h-24 rounded-lg object-cover" />
+          </div>
 
+          <div class="flex gap-3 pt-2">
             <button
               @click="saveAchievement"
-              class="border border-white px-6 py-2 rounded-lg font-medium hover:bg-white hover:text-black transition"
+              :disabled="saving || uploading"
+              class="border border-white px-6 py-2 rounded-lg font-medium hover:bg-white hover:text-black transition disabled:opacity-50"
             >
-              {{ isEditing ? 'Update' : 'Add' }}
+              {{ saving ? 'Saving...' : isEditing ? 'Update' : 'Add' }}
             </button>
-
             <button
               v-if="isEditing"
               @click="cancelEdit"
@@ -70,79 +64,40 @@
             >
               Cancel
             </button>
-
           </div>
 
-          <!-- FEEDBACK -->
           <p v-if="error" class="text-red-400 text-sm">{{ error }}</p>
           <p v-if="success" class="text-green-400 text-sm">{{ success }}</p>
-
         </div>
       </div>
 
-      <!-- LIST HEADER -->
+      <!-- LIST -->
       <div class="mb-6">
-        <p class="text-xs tracking-[0.3em] text-gray-500 uppercase mb-2">
-          Data
-        </p>
+        <p class="text-xs tracking-[0.3em] text-gray-500 uppercase mb-2">Data</p>
         <h2 class="text-2xl font-semibold">Achievement List</h2>
       </div>
 
       <div v-if="loading" class="text-gray-400">Loading...</div>
 
-      <!-- LIST -->
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
         <div
           v-for="item in achievements"
           :key="item.id"
           class="group border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-500 hover:bg-neutral-900 transition"
         >
+          <img v-if="item.image" :src="item.image" class="w-full h-40 object-cover" />
 
-          <!-- IMAGE -->
-          <img
-            v-if="item.image"
-            :src="item.image"
-            class="w-full h-40 object-cover"
-          />
-
-          <!-- CONTENT -->
           <div class="p-5">
+            <h3 class="text-lg font-semibold mb-1">{{ item.title }}</h3>
+            <p class="text-gray-400 text-sm mb-2">{{ item.year }}</p>
+            <p class="text-gray-300 text-sm mb-4">{{ item.description }}</p>
 
-            <h3 class="text-lg font-semibold mb-1">
-              {{ item.title }}
-            </h3>
-
-            <p class="text-gray-400 text-sm mb-2">
-              {{ item.year }}
-            </p>
-
-            <p class="text-gray-300 text-sm mb-4">
-              {{ item.description }}
-            </p>
-
-            <!-- ACTION -->
             <div class="flex gap-4 text-sm">
-
-              <button
-                @click="editAchievement(item)"
-                class="text-gray-400 hover:text-white transition"
-              >
-                Edit
-              </button>
-
-              <button
-                @click="deleteAchievement(item.id)"
-                class="text-red-400 hover:text-red-300 transition"
-              >
-                Delete
-              </button>
-
+              <button @click="editAchievement(item)" class="text-gray-400 hover:text-white transition">Edit</button>
+              <button @click="deleteAchievement(item.id)" class="text-red-400 hover:text-red-300 transition">Delete</button>
             </div>
-
           </div>
         </div>
-
       </div>
 
     </div>
@@ -150,22 +105,17 @@
 </template>
 
 <script setup>
-
 import { ref, onMounted } from 'vue'
+import { supabase } from '../../lib/supabase'
 
-const selectedFile = ref(null)
 const achievements = ref([])
 const loading = ref(true)
-
+const saving = ref(false)
+const uploading = ref(false)
 const error = ref('')
 const success = ref('')
-
 const isEditing = ref(false)
 const editingId = ref(null)
-
-const handleFile = (event) => {
-  selectedFile.value = event.target.files[0]
-}
 
 const form = ref({
   title: '',
@@ -174,73 +124,91 @@ const form = ref({
   image: ''
 })
 
-/* ================= FETCH ================= */
+// Upload langsung ke Cloudinary dari frontend
+const handleFile = async (event) => {
+  const file = event.target.files[0]
+  if (!file) return
+
+  uploading.value = true
+  error.value = ''
+
+  try {
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET)
+
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      { method: 'POST', body: formData }
+    )
+
+    const data = await res.json()
+    if (data.secure_url) {
+      form.value.image = data.secure_url
+    } else {
+      throw new Error('Upload gagal')
+    }
+  } catch (err) {
+    error.value = 'Gagal upload gambar: ' + err.message
+  } finally {
+    uploading.value = false
+  }
+}
 
 const fetchAchievements = async () => {
-  try {
-    const res = await fetch('https://portofolio-production-c69c.up.railway.app/api/achievements')
-    const data = await res.json()
+  const { data, error: err } = await supabase
+    .from('achievements')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  if (err) {
+    error.value = err.message
+  } else {
     achievements.value = data
-  } catch (err) {
-    error.value = 'Failed to fetch achievements'
-  } finally {
-    loading.value = false
   }
+  loading.value = false
 }
 
 onMounted(fetchAchievements)
 
-/* ================= SAVE ================= */
-
 const saveAchievement = async () => {
   error.value = ''
   success.value = ''
+  saving.value = true
 
   try {
-    const token = localStorage.getItem('token')
-
-    const formData = new FormData()
-    formData.append('title', form.value.title)
-    formData.append('description', form.value.description)
-    formData.append('year', form.value.year)
-
-    if (selectedFile.value) {
-      formData.append('image', selectedFile.value)
+    const payload = {
+      title: form.value.title,
+      description: form.value.description,
+      year: Number(form.value.year),
+      image: form.value.image || null
     }
 
-    // saveAchievement
-const url = isEditing.value
-  ? `https://portofolio-production-c69c.up.railway.app/api/achievements/${editingId.value}`
-  : 'https://portofolio-production-c69c.up.railway.app/api/achievements'
+    if (isEditing.value) {
+      const { error: err } = await supabase
+        .from('achievements')
+        .update(payload)
+        .eq('id', editingId.value)
 
-    const method = isEditing.value ? 'PUT' : 'POST'
+      if (err) throw err
+      success.value = 'Achievement updated!'
+    } else {
+      const { error: err } = await supabase
+        .from('achievements')
+        .insert(payload)
 
-    const res = await fetch(url, {
-      method,
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: formData
-    })
+      if (err) throw err
+      success.value = 'Achievement added!'
+    }
 
-    const data = await res.json()
-
-    if (!res.ok) throw new Error(data.error)
-
-    fetchAchievements()
-
-    success.value = isEditing.value
-      ? 'Achievement updated!'
-      : 'Achievement added!'
-
+    await fetchAchievements()
     resetForm()
-
   } catch (err) {
     error.value = err.message
+  } finally {
+    saving.value = false
   }
 }
-
-/* ================= EDIT ================= */
 
 const editAchievement = (item) => {
   form.value = {
@@ -249,52 +217,30 @@ const editAchievement = (item) => {
     year: item.year,
     image: item.image || ''
   }
-
   editingId.value = item.id
   isEditing.value = true
 }
 
-/* ================= DELETE ================= */
-
 const deleteAchievement = async (id) => {
   if (!confirm('Delete this achievement?')) return
 
-  try {
-    const token = localStorage.getItem('token')
+  const { error: err } = await supabase
+    .from('achievements')
+    .delete()
+    .eq('id', id)
 
-    const res = await fetch(`https://portofolio-production-c69c.up.railway.app/api/achievements/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-
-    const data = await res.json()
-
-    if (!res.ok) throw new Error(data.error)
-
-    achievements.value = achievements.value.filter(a => a.id !== id)
-
-  } catch (err) {
+  if (err) {
     alert(err.message)
+  } else {
+    achievements.value = achievements.value.filter(a => a.id !== id)
   }
 }
 
-/* ================= RESET ================= */
-
 const resetForm = () => {
-  form.value = {
-    title: '',
-    description: '',
-    year: '',
-    image: ''
-  }
-
+  form.value = { title: '', description: '', year: '', image: '' }
   isEditing.value = false
   editingId.value = null
 }
 
-const cancelEdit = () => {
-  resetForm()
-}
+const cancelEdit = () => resetForm()
 </script>

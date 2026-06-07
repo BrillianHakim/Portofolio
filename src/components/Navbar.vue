@@ -19,7 +19,6 @@
             :class="{ '!text-white': isActive(item.to) }"
           >
             {{ item.text }}
-            <!-- Active underline -->
             <span
               class="absolute -bottom-1 left-0 h-px bg-white transition-all duration-300"
               :class="isActive(item.to) ? 'w-full' : 'w-0 group-hover:w-full'"
@@ -29,20 +28,14 @@
       </ul>
 
       <!-- HAMBURGER (MOBILE) -->
-      <button
-        class="md:hidden text-gray-400 hover:text-white transition"
-        @click="open = !open"
-      >
+      <button class="md:hidden text-gray-400 hover:text-white transition" @click="open = !open">
         <span v-if="!open" class="text-xl">☰</span>
         <span v-else class="text-xl">✕</span>
       </button>
     </div>
 
     <!-- MOBILE MENU -->
-    <div
-      v-if="open"
-      class="md:hidden border-t border-neutral-800 mt-4 pt-4"
-    >
+    <div v-if="open" class="md:hidden border-t border-neutral-800 mt-4 pt-4">
       <ul class="flex flex-col gap-4 px-2">
         <li v-for="item in navItems" :key="item.to">
           <router-link
@@ -72,7 +65,6 @@ const navItems = [
   { to: '/achievements', text: 'Achievements' },
   { to: '/projects', text: 'Projects' },
   { to: '/contact', text: 'Contact' },
-  { to: '/chat', text: 'Chat' },
 ]
 
 const isActive = (path) => {

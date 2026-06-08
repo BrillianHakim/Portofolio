@@ -44,7 +44,7 @@
           <!-- CONTENT -->
           <div class="p-4 flex flex-col flex-1">
             <h2 class="text-sm font-semibold text-white leading-snug mb-1.5">{{ project.title }}</h2>
-            <p class="text-xs text-gray-400 leading-relaxed mb-3 flex-1">{{ project.description }}</p>
+            <p class="text-xs text-gray-400 leading-relaxed mb-3 flex-1 text-justify">{{ project.description }}</p>
 
             <!-- TECH TAGS -->
             <div class="flex flex-wrap gap-1.5 mb-3">

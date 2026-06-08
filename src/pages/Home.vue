@@ -21,37 +21,31 @@
           Saya berkuliah di Institut Teknologi Nasional Malang, fans Barca, dan senang dengan dunia teknologi. Saya suka mengunjungi tempat-tempat baru, menikmati sunset, dan menghabiskan waktu dengan secangkir kopi.
            Salam kenal!👋
         </p>
-
-        <!-- <div class="flex gap-3">
-          <a
-            href="/projects"
-            class="text-sm border border-white px-5 py-2 rounded-lg hover:bg-white hover:text-black transition"
-          >
-            Lihat Projects
-          </a>
-          <a
-            href="/contact"
-            class="text-sm border border-neutral-700 px-5 py-2 rounded-lg text-gray-400 hover:border-white hover:text-white transition"
-          >
-            Hubungi Saya
-          </a>
-        </div> -->
       </div>
 
       <!-- KANAN: FOTO CAROUSEL -->
       <div class="flex flex-col items-center md:items-end gap-4">
         <div class="relative">
           <div class="absolute -inset-1 rounded-2xl border border-neutral-700"></div>
-          <div class="relative w-72 h-72 rounded-2xl overflow-hidden">
+          <div class="relative w-72 h-72 rounded-2xl overflow-hidden bg-neutral-900">
+
+            <!-- Loading skeleton saat gambar belum siap -->
+            <div
+              v-if="!allLoaded"
+              class="absolute inset-0 bg-neutral-800 animate-pulse rounded-2xl"
+            ></div>
+
             <img
               v-for="(photo, index) in photos"
               :key="index"
               :src="photo.src"
               :alt="photo.alt"
+              fetchpriority="high"
               :class="[
                 'absolute inset-0 w-full h-full object-cover transition-opacity duration-700',
-                index === current ? 'opacity-100' : 'opacity-0'
+                index === current && allLoaded ? 'opacity-100' : 'opacity-0'
               ]"
+              @load="onImageLoad"
             />
           </div>
         </div>
@@ -85,7 +79,17 @@ const photos = [
 ]
 
 const current = ref(0)
+const allLoaded = ref(false)
+const loadedCount = ref(0)
 let timer = null
+
+// Hitung gambar yang sudah selesai load
+const onImageLoad = () => {
+  loadedCount.value++
+  if (loadedCount.value >= photos.length) {
+    allLoaded.value = true
+  }
+}
 
 const goTo = (index) => {
   current.value = index
@@ -102,6 +106,12 @@ const resetTimer = () => {
 }
 
 onMounted(() => {
+  // Preload semua gambar di background saat halaman buka
+  photos.forEach(photo => {
+    const img = new Image()
+    img.src = photo.src
+  })
+
   timer = setInterval(next, 4000)
 })
 

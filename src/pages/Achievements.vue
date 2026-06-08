@@ -51,7 +51,7 @@
               <span class="text-xs tracking-widest text-gray-500 uppercase">{{ cert.year }}</span>
             </div>
             <h3 class="text-base font-semibold text-white leading-snug mb-2">{{ cert.title }}</h3>
-            <p class="text-sm text-gray-400 leading-relaxed">{{ cert.description }}</p>
+            <p class="text-sm text-gray-400 leading-relaxed text-justify">{{ cert.description }}</p>
           </div>
         </div>
       </div>

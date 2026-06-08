@@ -13,13 +13,13 @@
         <div class="h-px w-16 bg-white mb-6"></div>
 
         <p class="text-gray-400 text-sm tracking-wide mb-6">
-          Informatics Engineering Student · Web Developer · Content Writer
+          Informatics Engineering Student · Web Developer · Content Writer · Freelancer
         </p>
 
-        <p class="text-gray-300 leading-7 text-[15px] mb-8">
-          Hai, saya Bintang Brillian Hakim — biasa dipanggil <span class="text-white font-medium">Hakim</span>.
-          Saya berkuliah di Institut Teknologi Nasional Malang, fans Barca, dan senang membangun
-          hal-hal di web. Salam kenal! 👋
+        <p class="text-gray-300 leading-7 text-[15px] mb-8 text-justify">
+          Hai, saya Bintang Brillian Hakim, biasa dipanggil <span class="text-white font-medium">Hakim</span>.
+          Saya berkuliah di Institut Teknologi Nasional Malang, fans Barca, dan senang dengan dunia teknologi. Saya suka mengunjungi tempat-tempat baru, menikmati sunset, dan menghabiskan waktu dengan secangkir kopi.
+           Salam kenal!👋
         </p>
 
         <!-- <div class="flex gap-3">
@@ -80,8 +80,8 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const photos = [
-  { src: '/Bintang Brillian Hakim.jpg', alt: 'Bintang Brillian Hakim' },
-  { src: '/dora.jpeg', alt: 'Bintang Brillian Hakim' },
+  { src: '/Cuy.webp', alt: 'Bintang Brillian Hakim' },
+  { src: '/dora.webp', alt: 'Bintang Brillian Hakim' },
 ]
 
 const current = ref(0)

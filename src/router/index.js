@@ -6,11 +6,14 @@ import About from '../pages/About.vue'
 import Projects from '../pages/Projects.vue'
 import Achievements from '../pages/Achievements.vue'
 import Contact from '../pages/Contact.vue'
+import Resume from '../pages/Resume.vue'
+import Gallery from '../pages/Gallery.vue'
 
 import AdminLogin from '../pages/admin/Login.vue'
 import AdminDashboard from '../pages/admin/Dashboard.vue'
 import AdminProjects from '../pages/admin/Projects.vue'
 import AdminAchievements from '../pages/admin/Achievements.vue'
+import AdminGallery from '../pages/admin/Gallery.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
 
 const routes = [
@@ -19,6 +22,8 @@ const routes = [
   { path: '/projects', component: Projects },
   { path: '/achievements', component: Achievements },
   { path: '/contact', component: Contact },
+  { path: '/resume', component: Resume },
+  { path: '/gallery', component: Gallery },
 
   { path: '/admin/login', component: AdminLogin },
 
@@ -30,6 +35,7 @@ const routes = [
       { path: 'dashboard', component: AdminDashboard },
       { path: 'projects', component: AdminProjects },
       { path: 'achievements', component: AdminAchievements },
+      { path: 'gallery', component: AdminGallery },
     ]
   }
 ]

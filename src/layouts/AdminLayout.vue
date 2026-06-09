@@ -25,6 +25,10 @@
             class="block px-4 py-2 rounded-lg border border-transparent hover:border-neutral-700 hover:bg-neutral-900 transition">
             Achievements
           </router-link>
+          <router-link to="/admin/gallery"
+            class="block px-4 py-2 rounded-lg border border-transparent hover:border-neutral-700 hover:bg-neutral-900 transition">
+            Gallery
+          </router-link>
         </nav>
       </div>
 

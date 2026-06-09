@@ -64,7 +64,9 @@ const navItems = [
   { to: '/about', text: 'About Me' },
   { to: '/achievements', text: 'Achievements' },
   { to: '/projects', text: 'Projects' },
+  { to: '/gallery', text: 'Gallery' },
   { to: '/contact', text: 'Contact' },
+  { to: '/resume', text: 'Resume' },
 ]
 
 const isActive = (path) => {

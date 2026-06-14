@@ -36,7 +36,7 @@
             </div>
             <div>
               <h2 class="text-xl font-bold">Bintang Brillian Hakim</h2>
-              <p class="text-gray-400 text-sm">Informatics Engineering Student · Web Developer · Content Writer</p>
+              <p class="text-gray-400 text-sm">Informatics Engineering Student · Web Developer · Content Writer · Freelancer</p>
             </div>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">

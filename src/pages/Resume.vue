@@ -163,7 +163,7 @@ const experience = [
 const skills = [
   {
     category: 'Frontend',
-    items: ['HTML', 'CSS', 'JavaScript', 'Vue.js', 'Tailwind CSS', 'Bootstrap']
+    items: ['HTML', 'CSS', 'JavaScript', 'Vue.js', 'Tailwind CSS', 'Bootstrap', 'React']
   },
   {
     category: 'Backend',
@@ -171,11 +171,11 @@ const skills = [
   },
   {
     category: 'Database & Tools',
-    items: ['PostgreSQL', 'Supabase', 'Git', 'Cloudinary']
+    items: ['PostgreSQL', 'Supabase', 'Git', 'Cloudinary', 'Figma', 'VS Code', 'Neon', 'Vercel', 'GitHub','phpMyAdmin']
   },
   {
     category: 'Soft Skills',
-    items: ['Content Writing', 'Komunikasi', 'Teamwork', 'Problem Solving']
+    items: ['Content Writing', 'Komunikasi', 'Teamwork', 'Problem Solving', 'Time Management', 'SEO Writing', 'Critical Thinking']
   }
 ]
 

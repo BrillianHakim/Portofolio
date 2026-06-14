@@ -163,11 +163,11 @@ const experience = [
 const skills = [
   {
     category: 'Frontend',
-    items: ['HTML', 'CSS', 'JavaScript', 'Vue.js', 'Tailwind CSS']
+    items: ['HTML', 'CSS', 'JavaScript', 'Vue.js', 'Tailwind CSS', 'Bootstrap']
   },
   {
     category: 'Backend',
-    items: ['Node.js', 'Express', 'PHP', 'Laravel']
+    items: ['Node.js', 'Express', 'PHP', 'Laravel', 'Python', 'Java']
   },
   {
     category: 'Database & Tools',

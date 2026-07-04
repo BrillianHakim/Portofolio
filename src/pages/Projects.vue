@@ -47,7 +47,7 @@
             <p class="text-xs text-gray-400 leading-relaxed mb-3 flex-1 text-justify">{{ project.description }}</p>
 
             <!-- TECH TAGS -->
-            <div class="flex flex-wrap gap-1.5 mb-3">
+            <div class="flex flex-wrap gap-1.5 mb-4">
               <span
                 v-for="tech in project.tech.split(',')"
                 :key="tech"
@@ -57,13 +57,28 @@
               </span>
             </div>
 
-            <a
-              :href="project.github_url"
-              target="_blank"
-              class="self-start text-xs border border-white text-white px-3 py-1 rounded-lg hover:bg-white hover:text-black transition"
-            >
-              GitHub →
-            </a>
+            <!-- BUTTONS -->
+            <div class="flex gap-2 flex-wrap">
+              <!-- LIVE DEMO -->
+              <a
+                v-if="project.live_url"
+                :href="project.live_url"
+                target="_blank"
+                class="text-xs bg-white text-black px-3 py-1.5 rounded-lg hover:bg-gray-200 transition font-medium"
+              >
+                Live Demo →
+              </a>
+
+              <!-- GITHUB -->
+              <a
+                v-if="project.github_url"
+                :href="project.github_url"
+                target="_blank"
+                class="text-xs border border-neutral-700 text-gray-400 px-3 py-1.5 rounded-lg hover:border-white hover:text-white transition"
+              >
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -34,6 +34,11 @@
             class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
           />
           <input
+            v-model="form.live_url"
+            placeholder="Live Demo URL (opsional) — contoh: https://projectku.vercel.app"
+            class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
+          />
+          <input
             v-model="form.image"
             placeholder="Image URL (dari Cloudinary)"
             class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
@@ -85,19 +90,16 @@
           <p class="text-gray-400 text-sm mb-2">{{ project.tech }}</p>
           <p class="text-gray-300 text-sm mb-4">{{ project.description }}</p>
 
-          <div class="flex justify-between items-center">
-            <a
-              v-if="project.github_url"
-              :href="project.github_url"
-              target="_blank"
-              class="text-gray-400 text-sm underline hover:text-white transition"
-            >
-              GitHub
-            </a>
-            <div class="flex gap-4 text-sm">
-              <button @click="editProject(project)" class="text-gray-400 hover:text-white transition">Edit</button>
-              <button @click="deleteProject(project.id)" class="text-red-400 hover:text-red-300 transition">Delete</button>
-            </div>
+          <div class="flex flex-wrap gap-3 text-sm mb-4">
+            <a v-if="project.github_url" :href="project.github_url" target="_blank"
+              class="text-gray-400 underline hover:text-white transition">GitHub</a>
+            <a v-if="project.live_url" :href="project.live_url" target="_blank"
+              class="text-blue-400 underline hover:text-blue-300 transition">Live Demo</a>
+          </div>
+
+          <div class="flex gap-4 text-sm">
+            <button @click="editProject(project)" class="text-gray-400 hover:text-white transition">Edit</button>
+            <button @click="deleteProject(project.id)" class="text-red-400 hover:text-red-300 transition">Delete</button>
           </div>
         </div>
       </div>
@@ -123,6 +125,7 @@ const form = ref({
   description: '',
   tech: '',
   github_url: '',
+  live_url: '',
   image: ''
 })
 
@@ -132,11 +135,8 @@ const fetchProjects = async () => {
     .select('*')
     .order('created_at', { ascending: false })
 
-  if (err) {
-    error.value = err.message
-  } else {
-    projects.value = data
-  }
+  if (err) error.value = err.message
+  else projects.value = data
   loading.value = false
 }
 
@@ -153,18 +153,15 @@ const saveProject = async () => {
         .from('projects')
         .update(form.value)
         .eq('id', editingId.value)
-
       if (err) throw err
       success.value = 'Project updated!'
     } else {
       const { error: err } = await supabase
         .from('projects')
         .insert(form.value)
-
       if (err) throw err
       success.value = 'Project added!'
     }
-
     await fetchProjects()
     resetForm()
   } catch (err) {
@@ -180,6 +177,7 @@ const editProject = (project) => {
     description: project.description,
     tech: project.tech,
     github_url: project.github_url || '',
+    live_url: project.live_url || '',
     image: project.image || ''
   }
   editingId.value = project.id
@@ -188,21 +186,13 @@ const editProject = (project) => {
 
 const deleteProject = async (id) => {
   if (!confirm('Delete this project?')) return
-
-  const { error: err } = await supabase
-    .from('projects')
-    .delete()
-    .eq('id', id)
-
-  if (err) {
-    alert(err.message)
-  } else {
-    projects.value = projects.value.filter(p => p.id !== id)
-  }
+  const { error: err } = await supabase.from('projects').delete().eq('id', id)
+  if (err) alert(err.message)
+  else projects.value = projects.value.filter(p => p.id !== id)
 }
 
 const resetForm = () => {
-  form.value = { title: '', description: '', tech: '', github_url: '', image: '' }
+  form.value = { title: '', description: '', tech: '', github_url: '', live_url: '', image: '' }
   isEditing.value = false
   editingId.value = null
 }

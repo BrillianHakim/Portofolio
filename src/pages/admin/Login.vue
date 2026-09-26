@@ -15,59 +15,45 @@
 
       <!-- FORM CARD -->
       <div class="border border-neutral-800 rounded-xl px-6 py-8">
-        <!-- LANGKAH 1: USERNAME -->
-<template v-if="step === 'username'">
-  <div>
-    <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">Username</p>
-    <input
-      v-model="username"
-      type="text"
-      autocomplete="username"
-      placeholder="username"
-      @keyup.enter="sendCode"
-      class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
-    />
-  </div>
-  <button
-    @click="sendCode"
-    :disabled="loading"
-    class="w-full mt-4 border border-white py-3 rounded-lg font-medium hover:bg-white hover:text-black transition disabled:opacity-50"
-  >
-    {{ loading ? 'Mengirim...' : 'Kirim Kode' }}
-  </button>
-</template>
+        <div class="space-y-5">
 
-<!-- LANGKAH 2: KODE OTP -->
-<template v-else>
-  <p class="text-sm text-gray-400 text-center">
-    Jika username terdaftar, kode telah dikirim ke email terkait.
-  </p>
-  <div>
-    <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">Kode</p>
-    <input
-      v-model="code"
-      type="text"
-      inputmode="numeric"
-      maxlength="8"
-      placeholder="123456"
-      @keyup.enter="verifyCode"
-      class="w-full p-3 bg-black border border-neutral-800 rounded-lg text-center tracking-[0.5em] focus:outline-none focus:border-white transition"
-    />
-  </div>
-  <button
-    @click="verifyCode"
-    :disabled="loading"
-    class="w-full mt-4 border border-white py-3 rounded-lg font-medium hover:bg-white hover:text-black transition disabled:opacity-50"
-  >
-    {{ loading ? 'Memeriksa...' : 'Login' }}
-  </button>
-  <button @click="step = 'username'" class="w-full text-xs text-gray-500 mt-2">
-    ← Kembali
-  </button>
-</template>
+          <!-- EMAIL -->
+          <div>
+            <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">Email</p>
+            <input
+              v-model="email"
+              type="email"
+              placeholder="you@example.com"
+              class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
+            />
+          </div>
 
-<!-- ERROR (tetap) -->
-<p v-if="error" class="text-red-400 text-sm text-center mt-2">{{ error }}</p>
+          <!-- PASSWORD -->
+          <div>
+            <p class="text-[10px] tracking-widest text-gray-500 uppercase mb-2">Password</p>
+            <input
+              v-model="password"
+              type="password"
+              placeholder="••••••••"
+              class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
+            />
+          </div>
+
+          <!-- BUTTON -->
+          <button
+            @click="login"
+            :disabled="loading"
+            class="w-full mt-4 border border-white py-3 rounded-lg font-medium hover:bg-white hover:text-black transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {{ loading ? 'Loading...' : 'Login' }}
+          </button>
+
+          <!-- ERROR -->
+          <p v-if="error" class="text-red-400 text-sm text-center mt-2">
+            {{ error }}
+          </p>
+
+        </div>
       </div>
 
     </div>
@@ -79,60 +65,28 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '../../lib/supabase'
 
-const username = ref('')
-const code = ref('')
-const step = ref('username') // 'username' -> 'code'
+const email = ref('')
+const password = ref('')
 const error = ref('')
 const loading = ref(false)
-let userEmail = ''
 
 const router = useRouter()
 
-// Langkah 1: cari email dari username, lalu kirim kode
-const sendCode = async () => {
+const login = async () => {
   error.value = ''
   loading.value = true
-  try {
-    const name = username.value.trim()
-    if (!name) throw new Error('Username wajib diisi')
 
-    const { data: email } = await supabase.rpc('get_email_by_username', {
-      p_username: name,
+  try {
+    const { error: authError } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
     })
 
-    if (email) {
-      userEmail = email
-      const { error: otpError } = await supabase.auth.signInWithOtp({
-        email,
-        options: { shouldCreateUser: false }, // orang asing tidak bisa daftar
-      })
-      if (otpError) throw otpError
-    }
-
-    // Pesan sama, apapun hasilnya (username ada atau tidak)
-    step.value = 'code'
-  } catch (err) {
-    error.value = err.message || 'Gagal mengirim kode'
-  } finally {
-    loading.value = false
-  }
-}
-
-// Langkah 2: verifikasi kode
-const verifyCode = async () => {
-  error.value = ''
-  loading.value = true
-  try {
-    const { error: verifyError } = await supabase.auth.verifyOtp({
-      email: userEmail,
-      token: code.value.trim(),
-      type: 'email',
-    })
-    if (verifyError) throw new Error('Kode salah atau kedaluwarsa')
+    if (authError) throw authError
 
     router.push('/admin/dashboard')
   } catch (err) {
-    error.value = err.message
+    error.value = err.message || 'Login failed'
   } finally {
     loading.value = false
   }

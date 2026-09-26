@@ -86,10 +86,10 @@
 
 <script setup>
 const sideInfo = [
-  { label: 'Status', value: 'Mahasiswa Semester 8' },
-  { label: 'Jurusan', value: 'Teknik Informatika' },
-  { label: 'Fokus', value: 'Web Development' },
-  { label: 'Pengalaman', value: 'Magang Content Writer' },
+  { label: 'Status', value: 'Lulusan Teknik Informatika' },
+  { label: 'Fokus', value: 'Web Development dan SEO' },
+  { label: 'Pengalaman Magang', value: 'Jitu Property sebagai Web Development, SEO Analyst, dan Content Writter' },
+  { label: 'Pengalaman Kerja', value: 'Driver ShopeeFood, Suveyor Fotografi, Freelance' },
 ]
 const skills = [
   {
@@ -147,6 +147,34 @@ const skills = [
   {
     name: 'Figma',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
+  },
+  {
+    name: 'Vue',
+    icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg',
+  },
+  { 
+    name: 'Java',
+     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
+   },
+  {
+    name: 'Python',
+     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  },
+  {
+    name: 'C++',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
+  },
+  {
+    name: 'C#',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg',
+  },
+  {
+    name: 'Tailwind CSS',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg',
+  },
+  {
+    name: 'Bootstrap',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
   },
 ];
 </script>

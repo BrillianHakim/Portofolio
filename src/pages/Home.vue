@@ -18,7 +18,7 @@
 
         <p class="text-gray-300 leading-7 text-[15px] mb-8 text-justify">
           Hai, saya Bintang Brillian Hakim, biasa dipanggil <span class="text-white font-medium">Hakim</span>.
-          Saya lulusan teknik informatika Institut Teknologi Nasional Malang, fans Barca, dan senang dengan dunia teknologi. Saya suka mengunjungi tempat-tempat baru, menikmati sunset, dan menghabiskan waktu dengan secangkir kopi.
+          Saya lulusan teknik informatika dari Institut Teknologi Nasional Malang, fans Barca, dan senang dengan dunia teknologi. Saya suka mengunjungi tempat-tempat baru, menikmati sunset, dan menghabiskan waktu dengan secangkir kopi.
            Salam kenal!👋
         </p>
       </div>

@@ -13,7 +13,7 @@
         <div class="h-px w-16 bg-white mb-6"></div>
 
         <p class="text-gray-400 text-sm tracking-wide mb-6">
-          Informatics Engineering Student · Web Developer · Content Writer · Freelancer
+          Informatics Engineering Graduate from Institut Teknologi Nasional Malang | Freelance Content Writer | Copywriter | Junior Web Developer
         </p>
 
         <p class="text-gray-300 leading-7 text-[15px] mb-8 text-justify">

@@ -36,9 +36,12 @@
             </div>
             <div>
               <h2 class="text-xl font-bold">Bintang Brillian Hakim</h2>
-              <p class="text-gray-400 text-sm">Informatics Engineering Student · Web Developer · Content Writer · Freelancer</p>
+              <p class="text-gray-400 text-sm">Mahasiswa S1 Teknik Informatika, Institut Teknologi Nasional Malang | Web Developer | Content Writer & SEO Writer</p>
             </div>
           </div>
+          <p class="text-sm text-gray-300 leading-relaxed mb-4">
+            Mahasiswa Teknik Informatika ITN Malang dengan minat kuat pada web development. Berpengalaman dalam pengembangan front-end dan back-end menggunakan teknologi seperti Next.js, Laravel, PostgreSQL, Supabase, MySQL, Vercel, Git, dan Figma. Memiliki pengalaman magang dalam pembuatan artikel serta optimasi SEO. Mampu bekerja secara mandiri maupun kolaboratif dalam tim, adaptif, dan berdedikasi tinggi untuk terus mempelajari teknologi terbaru.
+          </p>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
             <div v-for="info in contactInfo" :key="info.label" class="flex items-center gap-2 text-sm text-gray-400">
               <span class="text-white">{{ info.icon }}</span>
@@ -53,7 +56,7 @@
             <p class="text-xs tracking-[0.3em] text-gray-500 uppercase">Pendidikan</p>
             <div class="flex-1 h-px bg-neutral-800"></div>
           </div>
-          <div v-for="edu in education" :key="edu.school" class="border border-neutral-800 rounded-xl px-6 py-5 hover:border-neutral-600 transition">
+          <div v-for="edu in education" :key="edu.school" class="border border-neutral-800 rounded-xl px-6 py-5 hover:border-neutral-600 transition mb-3 last:mb-0">
             <div class="flex justify-between items-start flex-wrap gap-2">
               <div>
                 <h3 class="font-semibold text-white">{{ edu.school }}</h3>
@@ -61,7 +64,7 @@
               </div>
               <div class="text-right">
                 <p class="text-xs tracking-widest text-gray-500 uppercase">{{ edu.period }}</p>
-                <p class="text-sm text-white font-medium mt-1">IPK {{ edu.gpa }}</p>
+                <p v-if="edu.gpa" class="text-sm text-white font-medium mt-1">IPK {{ edu.gpa }}</p>
               </div>
             </div>
           </div>
@@ -73,7 +76,7 @@
             <p class="text-xs tracking-[0.3em] text-gray-500 uppercase">Pengalaman</p>
             <div class="flex-1 h-px bg-neutral-800"></div>
           </div>
-          <div v-for="exp in experience" :key="exp.company" class="border border-neutral-800 rounded-xl px-6 py-5 hover:border-neutral-600 transition">
+          <div v-for="exp in experience" :key="exp.company" class="border border-neutral-800 rounded-xl px-6 py-5 hover:border-neutral-600 transition mb-3 last:mb-0">
             <div class="flex justify-between items-start flex-wrap gap-2 mb-3">
               <div>
                 <h3 class="font-semibold text-white">{{ exp.position }}</h3>
@@ -132,56 +135,81 @@
 
 <script setup>
 import { ref } from 'vue'
+
 const contactInfo = [
+  { icon: '📞', value: '082132720490' },
   { icon: '✉', value: 'bintangbrillianhakim@gmail.com' },
-  { icon: '📍', value: 'Malang, Indonesia' },
-  { icon: '🌐', value: 'brillianhakim.vercel.app' },
+  { icon: '📍', value: 'Dampit, Kab. Malang, Jawa Timur' },
 ]
 
 const education = [
   {
     school: 'Institut Teknologi Nasional Malang',
-    major: 'Teknik Informatika',
-    period: '2022 — Sekarang',
-    gpa: '3.50'
+    major: 'S1 Teknik Informatika',
+    period: '2022 — 2026',
+    gpa: '3.46/4.00'
+  },
+  {
+    school: 'SMK Negeri 1 Turen',
+    major: 'Teknik Komputer dan Jaringan',
+    period: '2019 — 2022',
+    gpa: ''
   }
 ]
 
 const experience = [
   {
-    company: 'Jitu Property',
-    position: 'Content Writer & Web Developer',
-    period: '2025',
+    company: 'PT Shopee International Indonesia',
+    position: 'Mitra Pengemudi ShopeeFood',
+    period: 'September 2025 — Sekarang',
     details: [
-      'Menulis konten properti untuk website perusahaan.',
-      'Membuat Website.',
-      'Membuat artikel SEO-friendly untuk meningkatkan visibilitas online.',
+      'Bertanggung jawab mengambil dan mengantar pesanan makanan secara tepat waktu dengan pelayanan ramah dan responsif.',
+      'Disiplin dan mandiri dalam mencapai target harian.',
+      'Terbiasa problem solving dan bekerja di bawah tekanan.',
+    ]
+  },
+  {
+    company: 'Freelance',
+    position: 'Web Developer',
+    period: 'November 2025',
+    details: [
+      'Membangun website landing page "Media Pembelajaran Kelas 6 SD", website edukasi interaktif untuk membantu siswa kelas 6 SD memahami materi pelajaran.',
+      'Dikembangkan menggunakan HTML, JavaScript, dan Bootstrap dengan tampilan responsif dan ramah pengguna.',
+    ]
+  },
+  {
+    company: 'CV. Aditra Perkasa',
+    position: 'Freelance Surveyor',
+    period: 'Mei 2025',
+    details: [
+      'Melakukan dokumentasi visual (foto) kondisi pohon pinus di kawasan lereng Gunung Arjuno sebagai data pendukung keputusan Dinas Lingkungan Hidup.',
+      'Bekerja mandiri di lapangan dengan ketelitian tinggi dalam pengambilan data visual.',
     ]
   }
 ]
 
 const skills = [
   {
-    category: 'Frontend',
-    items: ['HTML', 'CSS', 'JavaScript', 'Vue.js', 'Tailwind CSS', 'Bootstrap', 'React']
+    category: 'Bahasa Pemrograman',
+    items: ['JavaScript', 'PHP', 'C++', 'Python', 'SQL', 'Java']
   },
   {
-    category: 'Backend',
-    items: ['Node.js', 'Express', 'PHP', 'Laravel', 'Python', 'Java']
+    category: 'Framework',
+    items: ['Laravel', 'Next.js', 'Vue.js', 'Flask', 'Bootstrap', 'Tailwind CSS']
   },
   {
-    category: 'Database & Tools',
-    items: ['PostgreSQL', 'Supabase', 'Git', 'Cloudinary', 'Figma', 'VS Code', 'Neon', 'Vercel', 'GitHub','phpMyAdmin']
+    category: 'Perangkat Lunak',
+    items: ['Figma', 'Canva', 'Microsoft Excel', 'Microsoft Word', 'Laragon']
   },
   {
-    category: 'Soft Skills',
-    items: ['Content Writing', 'Komunikasi', 'Teamwork', 'Problem Solving', 'Time Management', 'SEO Writing', 'Critical Thinking']
+    category: 'Non-Teknis (Soft Skills)',
+    items: ['Manajemen Waktu', 'Problem Solving', 'Teamwork']
   }
 ]
 
 const languages = [
-  { name: 'Bahasa Indonesia', level: 'Native' },
-  { name: 'English', level: 'Basic' },
+  { name: 'Bahasa Indonesia', level: 'Native (Penutur Asli)' },
+  { name: 'English', level: 'Basic (Dasar)' },
 ]
 
 const downloading = ref(false)

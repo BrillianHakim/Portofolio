@@ -209,7 +209,7 @@ const downloadPDF = () => {
 const skills = [
   {
     category: 'Bahasa Pemrograman',
-    items: ['JavaScript', 'PHP', 'C++', 'Python', 'SQL', 'Java']
+    items: ['JavaScript', 'PHP', 'C++', 'Python', 'SQL', 'Java', 'C#', 'HTML', 'CSS', 'TypeScript',]
   },
   {
     category: 'Framework',
@@ -217,11 +217,11 @@ const skills = [
   },
   {
     category: 'Perangkat Lunak',
-    items: ['Figma', 'Canva', 'Microsoft Excel', 'Microsoft Word', 'Laragon']
+    items: ['Figma', 'Canva', 'Microsoft Excel', 'Microsoft Word', 'Laragon', 'XAMPP', 'Vercel', 'Supabase', 'Git']
   },
   {
     category: 'Non-Teknis (Soft Skills)',
-    items: ['Manajemen Waktu', 'Problem Solving', 'Teamwork']
+    items: ['Manajemen Waktu', 'Problem Solving', 'Teamwork', 'Kemampuan Analitis', 'Berpikir Kritis', 'Kemampuan Menulis', 'Adaptabilitas', 'Komunikasi']
   }
 ]
 

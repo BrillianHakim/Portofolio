@@ -191,20 +191,6 @@ const experience = [
     ]
   }
 ]
-const downloading = ref(false)
-
-const downloadPDF = () => {
-  downloading.value = true
-
-  const link = document.createElement('a')
-  link.href = '/CV_Bintang_Brillian_Hakim.pdf' // path ke file PDF Canva kamu di folder public
-  link.download = 'CV_Bintang_Brillian_Hakim.pdf'
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-
-  downloading.value = false
-}
 
 const skills = [
   {

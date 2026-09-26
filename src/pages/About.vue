@@ -15,27 +15,34 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
 
         <!-- BIO TEXT -->
-        <div class="md:col-span-2 space-y-5 text-gray-300 leading-7 text-[15px]">
-          <p>
-            Saya adalah mahasiswa <span class="text-white font-medium">Teknik Informatika semester 8</span>
-            yang memiliki ketertarikan pada pengembangan website dan dunia teknologi secara umum.
-            Ketertarikan ini membuat saya aktif mengerjakan berbagai proyek web, baik untuk
-            kebutuhan perkuliahan maupun proyek pribadi.
-          </p>
-          <p>
-            Selama kuliah, saya banyak mempelajari pengembangan aplikasi berbasis web, mulai dari
-            perancangan antarmuka, implementasi logika program, hingga pengelolaan data. Saya
-            terbiasa mengerjakan proyek menggunakan <span class="text-white font-medium">framework modern</span>
-            serta berusaha menulis kode yang rapi dan mudah dipelajari.
-          </p>
-          <p>
-            Selain fokus pada dunia akademik, saya juga aktif menulis artikel di website pribadi
-            dan pernah menjalani pengalaman magang sebagai
-            <span class="text-white font-medium">content writer di bidang properti</span>.
-            Aktivitas ini membantu saya melatih kemampuan komunikasi, berpikir terstruktur,
-            serta menyampaikan ide secara jelas.
-          </p>
-        </div>
+
+<div class="md:col-span-2 space-y-5 text-gray-300 leading-7 text-[15px]">
+  <p>
+    Saya adalah lulusan S-1
+    <span class="text-white font-medium">Teknik Informatika dari ITN Malang</span>
+    dengan minat yang kuat pada pengembangan website dan teknologi. Saya memiliki
+    ketertarikan pada proses pengembangan aplikasi, khususnya dalam membangun
+    website yang fungsional dan mudah digunakan.
+  </p>
+
+  <p>
+    Saya memiliki pengalaman dalam pengembangan
+    <span class="text-white font-medium">front-end dan back-end</span>
+    menggunakan berbagai teknologi seperti Next.js, Laravel, PostgreSQL,
+    Supabase, MySQL, Vercel, Git, dan Figma. Dalam mengerjakan proyek, saya
+    terbiasa bekerja secara mandiri maupun berkolaborasi dalam tim serta berusaha
+    menghasilkan kode dan tampilan yang terstruktur.
+  </p>
+
+  <p>
+    Selain pengembangan web, saya juga memiliki pengalaman
+    <span class="text-white font-medium">magang dalam pembuatan artikel dan optimasi SEO</span>.
+    Pengalaman tersebut membantu saya mengembangkan kemampuan menulis,
+    berkomunikasi, dan menyampaikan informasi secara terstruktur. Saya merupakan
+    pribadi yang adaptif dan memiliki dedikasi untuk terus mempelajari
+    perkembangan teknologi terbaru.
+  </p>
+</div>
 
         <!-- SIDE CARD -->
         <div class="space-y-4">
@@ -84,7 +91,6 @@ const sideInfo = [
   { label: 'Fokus', value: 'Web Development' },
   { label: 'Pengalaman', value: 'Magang Content Writer' },
 ]
-
 const skills = [
   {
     name: 'HTML',
@@ -99,8 +105,8 @@ const skills = [
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
   },
   {
-    name: 'Vue.js',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg',
+    name: 'Next.js',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
   },
   {
     name: 'PHP',
@@ -111,20 +117,36 @@ const skills = [
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg',
   },
   {
-    name: 'Java',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
+    name: 'Flask',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg',
   },
   {
-    name: 'C++',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
+    name: 'Node.js',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+  },
+  {
+    name: 'PostgreSQL',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+  },
+  {
+    name: 'MySQL',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+  },
+  {
+    name: 'Supabase',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg',
   },
   {
     name: 'Git',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
   },
   {
-    name: 'Node.js',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+    name: 'Vercel',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg',
   },
-]
+  {
+    name: 'Figma',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
+  },
+];
 </script>

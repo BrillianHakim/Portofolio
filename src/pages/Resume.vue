@@ -36,11 +36,15 @@
             </div>
             <div>
               <h2 class="text-xl font-bold">Bintang Brillian Hakim</h2>
-              <p class="text-gray-400 text-sm">Mahasiswa S1 Teknik Informatika, Institut Teknologi Nasional Malang | Web Developer | Content Writer & SEO Writer</p>
+              <p class="text-gray-400 text-sm">Informatics Engineering Graduate from Institut Teknologi Nasional Malang | Freelance Content Writer | Copywriter | Junior Web Developer</p>
             </div>
           </div>
           <p class="text-sm text-gray-300 leading-relaxed mb-4">
-            Mahasiswa Teknik Informatika ITN Malang dengan minat kuat pada web development. Berpengalaman dalam pengembangan front-end dan back-end menggunakan teknologi seperti Next.js, Laravel, PostgreSQL, Supabase, MySQL, Vercel, Git, dan Figma. Memiliki pengalaman magang dalam pembuatan artikel serta optimasi SEO. Mampu bekerja secara mandiri maupun kolaboratif dalam tim, adaptif, dan berdedikasi tinggi untuk terus mempelajari teknologi terbaru.
+            Lulusan S-1 Teknik Informatika dari ITN Malang dengan minat kuat pada web development.
+Berpengalaman dalam pengembangan front-end dan back-end menggunakan teknologi seperti
+Next.js, Laravel, PostgreSQL, Supabase, MySQL, Vercel, Git, dan Figma. Memiliki pengalaman
+magang dalam pembuatan artikel serta optimasi SEO. Mampu bekerja secara mandiri maupun
+kolaboratif dalam tim, adaptif, dan berdedikasi tinggi untuk terus mempelajari teknologi terbaru.
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
             <div v-for="info in contactInfo" :key="info.label" class="flex items-center gap-2 text-sm text-gray-400">
@@ -70,10 +74,10 @@
           </div>
         </div>
 
-        <!-- PENGALAMAN -->
+        <!-- PENGALAMAN Kerja-->
         <div>
           <div class="flex items-center gap-3 mb-5">
-            <p class="text-xs tracking-[0.3em] text-gray-500 uppercase">Pengalaman</p>
+            <p class="text-xs tracking-[0.3em] text-gray-500 uppercase">Pengalaman Kerja</p>
             <div class="flex-1 h-px bg-neutral-800"></div>
           </div>
           <div v-for="exp in experience" :key="exp.company" class="border border-neutral-800 rounded-xl px-6 py-5 hover:border-neutral-600 transition mb-3 last:mb-0">
@@ -187,6 +191,20 @@ const experience = [
     ]
   }
 ]
+const downloading = ref(false)
+
+const downloadPDF = () => {
+  downloading.value = true
+
+  const link = document.createElement('a')
+  link.href = '/CV_Bintang_Brillian_Hakim.pdf' // path ke file PDF Canva kamu di folder public
+  link.download = 'CV_Bintang_Brillian_Hakim.pdf'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+
+  downloading.value = false
+}
 
 const skills = [
   {

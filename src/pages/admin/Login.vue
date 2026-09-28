@@ -23,7 +23,7 @@
             <input
               v-model="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="weladalah@example.com"
               class="w-full p-3 bg-black border border-neutral-800 rounded-lg focus:outline-none focus:border-white transition"
             />
           </div>

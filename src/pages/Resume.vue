@@ -141,7 +141,6 @@ kolaboratif dalam tim, adaptif, dan berdedikasi tinggi untuk terus mempelajari t
 import { ref } from 'vue'
 
 const contactInfo = [
-  { icon: '📞', value: '082132720490' },
   { icon: '✉', value: 'bintangbrillianhakim@gmail.com' },
   { icon: '📍', value: 'Dampit, Kab. Malang, Jawa Timur' },
 ]

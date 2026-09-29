@@ -32,7 +32,7 @@
         <div class="border border-neutral-800 rounded-xl px-6 py-6">
           <div class="flex items-center gap-4 mb-4">
             <div class="w-16 h-16 rounded-full bg-neutral-800 overflow-hidden flex-shrink-0">
-              <img src="/Cuy.webp" alt="Hakim" class="w-full h-full object-cover" />
+              <img src="/PAS FOTO.png" alt="Hakim" class="w-full h-full object-cover" />
             </div>
             <div>
               <h2 class="text-xl font-bold">Bintang Brillian Hakim</h2>
